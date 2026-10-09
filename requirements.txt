@@ -1,0 +1,4 @@
+apify==3.4.1
+httpx==0.28.1
+pymupdf==1.26.7
+protego==0.7.0

@@ -1,0 +1,19 @@
+{
+  "pricingModel": "PAY_PER_EVENT",
+  "pricingPerEvent": {
+    "actorChargeEvents": {
+      "pdf-extracted": {
+        "eventTitle": "PDF fully extracted",
+        "eventDescription": "One complete successful PDF; text, Markdown, per-page text and tables. Error rows are never charged.",
+        "eventPriceUsd": 0.002,
+        "isPrimaryEvent": true
+      },
+      "ocr-page": {
+        "eventTitle": "Scanned page OCR",
+        "eventDescription": "One page processed by Tesseract OCR within a successfully extracted PDF. Text-layer pages and all error rows are free of this event.",
+        "eventPriceUsd": 0.004,
+        "isPrimaryEvent": false
+      }
+    }
+  }
+}

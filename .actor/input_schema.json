@@ -1,0 +1,53 @@
+{
+  "title": "PDF Text Extractor",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "urls": {
+      "title": "PDF URLs",
+      "type": "array",
+      "description": "Public, directly downloadable HTTP(S) PDF URLs. One output row per entry; refusals, encrypted/corrupt files and non-PDF responses produce free diagnostics. No login, proxy or block evasion.",
+      "editor": "stringList",
+      "prefill": [
+        "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+      ]
+    },
+    "ocrLanguages": {
+      "title": "OCR languages",
+      "type": "string",
+      "description": "Tesseract language codes joined with +. Packs installed: eng, deu, fra, spa, ita, por, nld. Default eng+deu. Used only for pages without a usable text layer.",
+      "editor": "textfield",
+      "default": "eng+deu"
+    },
+    "maxPages": {
+      "title": "Maximum pages per PDF",
+      "type": "integer",
+      "description": "Reject larger documents as uncharged diagnostics; never truncate or charge a partial PDF.",
+      "default": 200,
+      "minimum": 1,
+      "maximum": 500,
+      "editor": "number"
+    },
+    "pdfTimeoutSeconds": {
+      "title": "Time limit per PDF",
+      "type": "integer",
+      "description": "Total download and extraction budget per PDF; timeouts produce uncharged diagnostics.",
+      "default": 60,
+      "minimum": 10,
+      "maximum": 120,
+      "editor": "number"
+    },
+    "runBudgetSeconds": {
+      "title": "Run work budget",
+      "type": "integer",
+      "description": "Stop starting PDF work after this budget and write uncharged diagnostics for remaining URLs. The Store timeout includes startup/flush overhead.",
+      "default": 240,
+      "minimum": 10,
+      "maximum": 240,
+      "editor": "number"
+    }
+  },
+  "required": [
+    "urls"
+  ]
+}

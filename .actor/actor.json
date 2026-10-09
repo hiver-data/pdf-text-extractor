@@ -1,0 +1,170 @@
+{
+  "actorSpecification": 1,
+  "name": "pdf-text-extractor",
+  "title": "PDF Text Extractor: Text, Markdown, Tables & OCR",
+  "description": "Extract full text and Markdown from public PDF URLs. Reads text layers first, OCRs scanned pages only, returns per-page text, tables and metadata. HTTP refusals and broken files are uncharged diagnostics.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "dockerfile": "../Dockerfile",
+  "input": "./input_schema.json",
+  "defaultRunOptions": {
+    "timeoutSecs": 300,
+    "memoryMbytes": 1024
+  },
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "fields": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Exact input PDF URL."
+          },
+          "status": {
+            "type": "string",
+            "description": "extracted or error."
+          },
+          "http_status": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "HTTP response status, or null before an HTTP response."
+          },
+          "page_count": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Total PDF page count, null on errors."
+          },
+          "text": {
+            "type": "string",
+            "description": "Full document text, not truncated."
+          },
+          "markdown": {
+            "type": "string",
+            "description": "Page-delimited Markdown including detected tables."
+          },
+          "pages": {
+            "type": "array",
+            "description": "One page, text and ocr flag per page.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "page": {
+                  "type": "integer"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "ocr": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "tables": {
+            "type": "array",
+            "description": "Detected digital ruling-line tables as {page,markdown}.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "page": {
+                  "type": "integer"
+                },
+                "markdown": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Source title and author, null when absent."
+          },
+          "char_count": {
+            "type": "integer",
+            "description": "Number of characters in full text."
+          },
+          "ocr_pages": {
+            "type": "integer",
+            "description": "Number of pages OCRed in successful PDF."
+          },
+          "billable": {
+            "type": "boolean",
+            "description": "False on every diagnostic row."
+          },
+          "error": {
+            "type": "string",
+            "description": "Machine-readable error code on diagnostic rows."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Explanation of diagnostic, without misleading empty-text success."
+          }
+        },
+        "additionalProperties": true
+      },
+      "views": {
+        "overview": {
+          "title": "PDF text and diagnostics",
+          "transformation": {
+            "fields": [
+              "url",
+              "status",
+              "http_status",
+              "page_count",
+              "char_count",
+              "ocr_pages",
+              "text",
+              "tables",
+              "metadata",
+              "error",
+              "reason"
+            ]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "url": {
+                "label": "url"
+              },
+              "status": {
+                "label": "status"
+              },
+              "http_status": {
+                "label": "http_status"
+              },
+              "page_count": {
+                "label": "page_count"
+              },
+              "char_count": {
+                "label": "char_count"
+              },
+              "ocr_pages": {
+                "label": "ocr_pages"
+              },
+              "text": {
+                "label": "text"
+              },
+              "tables": {
+                "label": "tables"
+              },
+              "metadata": {
+                "label": "metadata"
+              },
+              "error": {
+                "label": "error"
+              },
+              "reason": {
+                "label": "reason"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
