@@ -4,7 +4,7 @@ Turn public PDF URLs into full text, page-delimited Markdown, per-page text, det
 
 The Actor reads the PDF's text layer first. It runs Tesseract only on pages without a usable text layer, including scanned pages with only a page number or sparse header. Digital pages do not incur an OCR event. English and German are the default OCR languages.
 
-This is a new Actor under evaluation. Independent accuracy, price comparisons and cloud cost coverage have not yet been certified. It must pass the Lab bench before Store publication.
+**Retired experiment, not available on the Apify Store.** On 2026-10-09 this Actor failed hiver's quality bench twice: a 51-page PDF ran past its 60-second limit in Apify's cloud, so it was never published. The source stays here for reference and is not maintained. Links below to apify.com/hiver/pdf-text-extractor do not resolve, and the pricing section describes a price that never took effect.
 
 ## Input
 
@@ -97,4 +97,4 @@ No. Supply an unencrypted public document. The Actor does not try passwords or b
 
 ## License
 
-This Actor's source is licensed AGPL-3.0-or-later. It uses PyMuPDF (AGPL), Tesseract (Apache-2.0), httpx (BSD-3-Clause), Protego (BSD-3-Clause) and the Apify SDK (Apache-2.0). The complete corresponding source will be published through the board's existing GitHub service before Store release. No external AI or paid OCR API is used.
+This Actor's source is licensed AGPL-3.0-or-later. It uses PyMuPDF (AGPL), Tesseract (Apache-2.0), httpx (BSD-3-Clause), Protego (BSD-3-Clause) and the Apify SDK (Apache-2.0). This repository holds the complete source. No external AI or paid OCR API is used.
